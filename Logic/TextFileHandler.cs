@@ -1,4 +1,5 @@
-﻿using NPOI.Util;
+﻿using FileTransformationTest.Commons;
+using NPOI.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace FileTransformationTest.Logic
             string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             // Append text to an existing file named "WriteLines.txt".
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "CHECK_AFT_DATE.TXT"), true))
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, $"CHECK_AFT_DATE {DateTime.Now.ToString("MM/dd/yyyy").FormatDate()}.TXT"), true))
             {
                 foreach (string line in texts) { outputFile.WriteLine(line); }
             }
