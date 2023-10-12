@@ -27,7 +27,7 @@ Microsoft.Extensions.Configuration for configuration
 System.IO for reading and writing files
 
 Also this project also do Layered Architecture, trying to follow SOLID and Clean Code principles as faithful as possible for a Console Application, in an attempt to resemble a real project.
-We know! We lack Dependency Injection.
+I know! We lack Dependency Injection.
 
 The final output is stored in your Documents folder (for Windows)
 
