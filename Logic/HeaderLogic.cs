@@ -1,4 +1,7 @@
 ﻿using FileTransformationTest.Models;
+using FileTransformationTest.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +14,7 @@ namespace FileTransformationTest.Logic
     {
         private ExcelHandler _excelHandler;
         private TextFileHandler _textFileHandler;
+        private IConfigurationBuilder _configurationBuilder;
         private string _patchExcel;
         private string _patchText;
         public HeaderLogic()
@@ -19,6 +23,7 @@ namespace FileTransformationTest.Logic
             _excelHandler = new ExcelHandler(_patchExcel);
             _textFileHandler = new TextFileHandler();
             _patchText = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\CHEQUE_ap.TXT");
+            _configurationBuilder = new ConfigurationBuilder().AddJsonFile($"appsettings.json", true, true);
         }
 
         public Header GetHeader() 
@@ -50,6 +55,21 @@ namespace FileTransformationTest.Logic
             if (find != null)
             {
                 header.CurrencyId = find.CurrencyId;
+            }
+
+            var config = _configurationBuilder.Build();
+
+            var checkPlusDbOptions = new DbContextOptionsBuilder<CheckPlusDbContext>()
+                .UseSqlServer(config["ConnectionString"])
+                .Options;
+
+            using (var checkPlusDbContext = new CheckPlusDbContext(checkPlusDbOptions))
+            {
+                var bank = checkPlusDbContext.Banks.Find(header.BankId);
+                header.BankName = bank.Bank_Name;
+                header.Address1 = bank.Address_1;
+                header.Address2 = bank.Address_2;
+
             }
             return header;
         }
