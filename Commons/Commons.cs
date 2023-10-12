@@ -22,7 +22,7 @@ namespace FileTransformationTest.Commons
         { 
             if (date.IsNullOrEmpty()) { return ""; }
             var dateArray = date.Split("/");
-            return $"{dateArray[1]}{dateArray[0]}{dateArray[2]}"; 
+            return $"{dateArray[1]} {dateArray[0]} {dateArray[2]}"; 
         }
 
         public static string FormatTwoDecimals(this string number)
