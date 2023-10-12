@@ -29,7 +29,21 @@ namespace FileTransformationTest.Logic
             }
             return parametersList;
         }
-
+        public IEnumerable<CurrencyRules> GetCurrencyRules(string range)
+        {
+            var sheet = _workbook.GetSheetAt(0);
+            var cellRange = CellRangeAddress.ValueOf(range);
+            var currencyRulesList = new List<CurrencyRules>();
+            for (var i = cellRange.FirstRow; i <= cellRange.LastRow; i++)
+            {
+                var row = sheet.GetRow(i);
+                var currencyRules = new CurrencyRules();
+                currencyRules.Account = row.GetCell(0 + cellRange.MinColumn).NumericCellValue.ToString();
+                currencyRules.CurrencyId = row.GetCell(2 + cellRange.MinColumn).StringCellValue.Trim();
+                currencyRulesList.Add(currencyRules);
+            }
+            return currencyRulesList;
+        }
 
 
     }

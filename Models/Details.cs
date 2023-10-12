@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Azure;
+using FileTransformationTest.Commons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,5 +24,10 @@ namespace FileTransformationTest.Models
         public string? NetAmount { get; set; }
         public string? Concept { get; set; }
         public string? BenefitDescription { get; set; }
+
+        public override string ToString()
+        {
+            return $"D~{InvoiceNumber}~{InvoiceDate}~{VoucherNumber}~{VoucherDate.FormatDate()}~{GrossAmount.FormatTwoDecimals()}~{DiscountAmount}~{NetAmount.FormatTwoDecimals()}~{Concept}~{BenefitDescription}";
+        }
     }
 }

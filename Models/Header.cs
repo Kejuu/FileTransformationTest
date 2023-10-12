@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Azure;
+using FileTransformationTest.Commons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,7 @@ namespace FileTransformationTest.Models
         public string? RecordType { get; set; }
         public string? CheckNumber { get; set; }
         public string? BankId { get; set; }
+        public string? BankName { get; set; }
         public string? AccountId { get; set; }
         public string? CheckDate { get; set; }
         public string? PayeeId { get; set; }
@@ -25,5 +28,11 @@ namespace FileTransformationTest.Models
         public string? PayorId { get; set; }
         public string? AmountString { get; set; }
         public string? TemplateId { get; set; }
+        public string? CurrencyId { get; set; }
+
+        public override string ToString()
+        {
+            return $"H~{CheckNumber}~{BankName}~{Address1}~{Address2}~{AccountId}~{CheckDate.FormatDate()}~{CurrencyId}~{PayeeName1}~{PayeeName2}~{Address1}~{Address2}~{Address3} {Address4} {Address5}~ {CheckAmount}~{PayorId}~{AmountString}";
+        }
     }
 }
